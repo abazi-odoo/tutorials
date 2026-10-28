@@ -75,5 +75,6 @@ class EstatePropertyOffer(models.Model):
 
             if price <= max(property_record.offer_ids.mapped("price"), default=0):
                 raise ValidationError("Offer price must be greater than the current highest offer.")
-
+            else:
+                property_record.state = "offer_received"
         return super().create(vals_list)
