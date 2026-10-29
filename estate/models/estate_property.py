@@ -67,6 +67,16 @@ class EstateProperty(models.Model):
         string="Offers",
     )
 
+    _check_expected_price = models.Constraint(
+        'CHECK(expected_price > 0)',
+        'Expected price must be greater than 0.',
+    )
+
+    _check_selling_price = models.Constraint(
+        'CHECK(selling_price >= 0)',
+        'Selling price must be greater than or equal to 0.',
+    )
+    
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
         for record in self:
@@ -103,16 +113,6 @@ class EstateProperty(models.Model):
                 record.state = 'cancelled'
             else:
                 raise UserError("Only properties that are new, have received offers, or have accepted offers can be cancelled.")
-
-    _check_expected_price = models.Constraint(
-        'CHECK(expected_price > 0)',
-        'Expected price must be greater than 0.',
-    )
-
-    _check_selling_price = models.Constraint(
-        'CHECK(selling_price >= 0)',
-        'Selling price must be greater than or equal to 0.',
-    )
 
     @api.constrains('selling_price', 'expected_price')
     def _check_offer_price(self):

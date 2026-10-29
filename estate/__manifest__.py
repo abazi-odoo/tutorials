@@ -10,7 +10,7 @@
         'views/estate_property_tag_views.xml',
         'views/estate_property_views.xml',
         'views/estate_menus.xml',
-        'views/inherited_model_views.xml',
+        'views/res_users_views.xml',
     ],
     'author': "Abanoub Girgis",
     'application': True,

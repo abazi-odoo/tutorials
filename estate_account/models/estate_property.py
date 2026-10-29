@@ -7,7 +7,6 @@ class InheritedModel(models.Model):
         account_move = self.env['account.move'].create({
             'move_type': 'out_invoice',
             'partner_id': self.buyer_id.id,
-            # 'journal_id': self.env['account.journal'].search([('type', '=', 'sale')], limit=1).id,
             'invoice_line_ids': [
                 Command.create({
                 'name': self.name + ' Selling Price',

@@ -36,6 +36,11 @@ class EstatePropertyOffer(models.Model):
         store=True,
     )
 
+    _check_offer_price = models.Constraint(
+        'CHECK(price > 0)',
+        'Offer price must be greater than 0.',
+    )
+
     @api.depends('validity')
     def _compute_date_deadline(self):
         for record in self:
@@ -60,12 +65,6 @@ class EstatePropertyOffer(models.Model):
             if record.status != "refused":
                 record.property_id.selling_price = 0.0
             record.status = "refused"
-
-    _check_offer_price = models.Constraint(
-        'CHECK(price > 0)',
-        'Offer price must be greater than 0.',
-    )
-
 
     @api.model_create_multi
     def create(self, vals_list):
