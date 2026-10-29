@@ -1,7 +1,7 @@
 {
     'name': "Estate Account",
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['estate', 'account'],
     'data': [
         'security/ir.access.csv',
         
