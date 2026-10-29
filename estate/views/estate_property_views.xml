@@ -143,19 +143,33 @@
     <record id="estate_property_view_kanban" model="ir.ui.view">
         <field name="name">estate.property.kanban</field>
         <field name="model">estate.property</field>
-        <field name="arch" type="xml"></field>
-        <kanban string="Properties" default_group_by="property_type_id">
-            <templates>
-                <t t-name="card">
-                    <div>
-                        <field name="name" />
+        <field name="arch" type="xml">
+            <kanban string="Properties" default_group_by="property_type_id"
+                records_draggable="False">
+                <field name="state" />
+                <templates>
+                    <t t-name="card">
                         <div>
-                            This is new!
+                            <div class="fw-bolder fs-5 me-2">
+                                <field name="name" />
+                            </div>
+                            <div> Expected Price: <field name="expected_price" />
+                            </div>
+                            <div t-if="record.state.raw_value == 'offer_received'"> Best Price: <field
+                                    name="best_price" />
+                            </div>
+                            <div t-if="record.state.raw_value == 'offer_accepted'"> Selling Price: <field
+                                    name="selling_price" />
+                            </div>
+                            <div>
+                                <field name="property_tag_ids" widget="many2many_tags"
+                                    options="{'color_field': 'color'}" />
+                            </div>
                         </div>
-                    </div>
-                </t>
-            </templates>
-        </kanban>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
     </record>
 
 
