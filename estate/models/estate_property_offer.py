@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
 
@@ -73,7 +73,7 @@ class EstatePropertyOffer(models.Model):
             price = vals["price"]
 
             if price <= max(property_record.offer_ids.mapped("price"), default=0):
-                raise ValidationError("Offer price must be greater than the current highest offer.")
+                raise ValidationError(_("Offer price must be greater than the current highest offer."))
             else:
                 property_record.state = "offer_received"
         return super().create(vals_list)

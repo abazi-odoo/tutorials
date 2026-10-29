@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
 from dateutil.relativedelta import relativedelta
@@ -105,14 +105,14 @@ class EstateProperty(models.Model):
             if record.state == 'offer_accepted':
                 record.state = 'sold'
             else:
-                raise UserError("Only properties with accepted offers can be marked as sold.")
+                raise UserError(_("Only properties with accepted offers can be marked as sold."))
     
     def action_cancel(self):
         for record in self:
             if record.state in ['new', 'offer_received', 'offer_accepted']:
                 record.state = 'cancelled'
             else:
-                raise UserError("Only properties that are new, have received offers, or have accepted offers can be cancelled.")
+                raise UserError(_("Only properties that are new, have received offers, or have accepted offers can be cancelled."))
 
     @api.constrains('selling_price', 'expected_price')
     def _check_offer_price(self):
@@ -120,10 +120,10 @@ class EstateProperty(models.Model):
             if float_is_zero(record.selling_price, precision_digits=2):
                 continue
             elif float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) < 0:
-                raise ValidationError("Offer price must be at least 90% of the expected price.")
+                raise ValidationError(_("Offer price must be at least 90% of the expected price."))
 
     @api.ondelete(at_uninstall=False)
     def _unlink_except_new_or_cancelled(self):
         for record in self:
             if record.state != "new" and record.state != "cancelled":
-                raise ValidationError("You can only delete properties that are new or cancelled.")
+                raise ValidationError(_("You can only delete properties that are new or cancelled."))
