@@ -1,0 +1,20 @@
+<odoo>
+  <record id="mrp_production_form_sheet_fields" model="ir.ui.view">
+    <field name="name">mrp.production.form.sheet.fields</field>
+    <field name="model">mrp.production</field>
+    <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//sheet/notebook" position="before">
+        <group string="Sheet Requirements" name="sheet_requirements">
+          <group>
+            <field name="number_of_sheets" readonly="1" />
+            <field name="weight_per_sheet" readonly="1" />
+          </group>
+          <group>
+            <field name="total_sheets_weight" readonly="1" />
+          </group>
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>

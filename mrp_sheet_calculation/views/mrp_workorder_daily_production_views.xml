@@ -1,0 +1,20 @@
+<odoo>
+  <record id="mrp_workorder_daily_production_form_view" model="ir.ui.view">
+    <field name="name">mrp.workorder.daily.production.form</field>
+    <field name="model">mrp.workorder.daily.production</field>
+    <field name="arch" type="xml">
+      <form string="Daily Production Entry">
+        <sheet>
+          <group>
+            <field name="workorder_id" />
+            <field name="date" />
+            <field name="responsible_id" />
+            <field name="qty_produced" />
+            <field name="uom_id" />
+            <field name="notes" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+</odoo>

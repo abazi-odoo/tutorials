@@ -1,0 +1,46 @@
+<odoo>
+  <record id="mrp_workorder_form_daily_production" model="ir.ui.view">
+    <field name="name">mrp.workorder.form.daily.production</field>
+    <field name="model">mrp.workorder</field>
+    <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit" />
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page string="Daily Production" name="daily_production">
+          <group string="Production Summary">
+            <group>
+              <field name="qty_in" readonly="state in ('done', 'cancel')" />
+              <field name="qty_in_uom" readonly="1" />
+              <field name="qty_out" readonly="1" />
+              <field name="qty_out_uom" readonly="1" />
+            </group>
+            <group>
+              <field name="qty_waste" readonly="1" />
+              <field name="waste_percentage" readonly="1" />
+            </group>
+          </group>
+          <field name="daily_production_line_ids" nolabel="1" readonly="state in ('done', 'cancel')">
+            <list editable="bottom">
+              <field name="date" />
+              <field name="qty_produced" sum="Total Produced" />
+              <field name="uom_id" />
+              <field name="responsible_id" />
+              <field name="notes" optional="show" />
+            </list>
+            <form string="Daily Production Entry">
+              <sheet>
+                <group>
+                  <field name="date" />
+                  <field name="qty_produced" />
+                  <field name="uom_id" />
+                  <field name="responsible_id" />
+                  <field name="notes" />
+                  <field name="workorder_id" invisible="1" />
+                </group>
+              </sheet>
+            </form>
+          </field>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

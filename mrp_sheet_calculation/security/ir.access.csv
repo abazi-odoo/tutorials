@@ -1,0 +1,2 @@
+"id","name","model_id","group_id/id","operation","domain"
+access_mrp_workorder_daily_production,access_mrp_workcenter,mrp.workorder.daily.production,base.group_user,CRUD,
