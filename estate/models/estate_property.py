@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
 from dateutil.relativedelta import relativedelta
@@ -109,7 +109,7 @@ class EstateProperty(models.Model):
     
     def action_cancel(self):
         for record in self:
-            if record.state in ['new', 'offer_received', 'offer_accepted']:
+            if record.state in ('new', 'offer_received', 'offer_accepted'):
                 record.state = 'cancelled'
             else:
                 raise UserError(_("Only properties that are new, have received offers, or have accepted offers can be cancelled."))
@@ -125,5 +125,6 @@ class EstateProperty(models.Model):
     @api.ondelete(at_uninstall=False)
     def _unlink_except_new_or_cancelled(self):
         for record in self:
-            if record.state != "new" and record.state != "cancelled":
+            # if record.state != "new" and record.state != "cancelled":
+            if record.state in {'new','cancelled'}:
                 raise ValidationError(_("You can only delete properties that are new or cancelled."))

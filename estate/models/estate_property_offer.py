@@ -43,36 +43,43 @@ class EstatePropertyOffer(models.Model):
 
     @api.depends('validity')
     def _compute_date_deadline(self):
-        for record in self:
-            record.date_deadline = fields.Date.today() + relativedelta(days=record.validity)
+        self.date_deadline = (self.create_date.date() + relativedelta(days=self.validity))
 
     def _inverse_date_deadline(self):
         for record in self:
             record.validity = (record.date_deadline - fields.Date.today()).days
 
     def action_accept(self):
+        self.status = "accepted"
+
         for record in self:
-            record.status = "accepted"
-            record.property_id.state = "offer_accepted"
-            record.property_id.buyer_id = record.partner_id
-            record.property_id.selling_price = record.price
-            for subrecord in record.property_id.offer_ids:
-                if record.id != subrecord.id:
-                    subrecord.status = "refused"
+            record.property_id.update({
+                'state':"offer_accepted",
+                'buyer_id':record.partner_id,
+                'selling_price': record.price    
+            })
+        
+        declined_offers = self.property_id.offer_ids - self
+        declined_offers.status = "refused"
 
     def action_refuse(self):
+        self.filtered(lambda o :o.status == "accepted").property_id.selling_price = 0
+        self.status = "refused"
         for record in self:
-            if record.status != "refused":
+            if record.status == "accepted":
                 record.property_id.selling_price = 0.0
             record.status = "refused"
+        self.update({
+            
+            "status": "refused"
+        })
+        
 
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             property_record = self.env["estate.property"].browse(vals["property_id"])
-            price = vals["price"]
-
-            if price <= max(property_record.offer_ids.mapped("price"), default=0):
+            if vals["price"] <= max(property_record.offer_ids.mapped("price"), default=0):
                 raise ValidationError(_("Offer price must be greater than the current highest offer."))
             else:
                 property_record.state = "offer_received"

@@ -1,45 +1,15 @@
 <odoo>
-    <!-- Level 1: Root application -->
-    <menuitem
-        id="estate_menu_root"
-        name="Real Estate"
-    />
+    <menuitem id="estate_menu_root" name="Real Estate">
 
-    <!-- Level 2: First-level menu -->
-    <menuitem
-        id="estate_menu_advertisements"
-        name="Advertisements"
-        parent="estate_menu_root"
-    />
+        <menuitem id="estate_menu_advertisements" name="Advertisements">
+            <menuitem id="estate_property_menu"
+                name="Properties" action="estate_property_action" />
+        </menuitem>
+        <menuitem id="estate_menu_settings" name="Settings">
 
-    <!-- Level 3: Action menu -->
-    <menuitem
-        id="estate_property_menu"
-        name="Properties"
-        parent="estate_menu_advertisements"
-        action="estate_property_action"
-    />
+            <menuitem id="estate_property_type_menu" name="Property Types" />
 
-    <!-- Level 2: Settings menu -->
-    <menuitem
-        id="estate_menu_settings"
-        name="Settings"
-        parent="estate_menu_root"
-    />
-
-    <!-- Level 3: Property Types menu -->
-    <menuitem
-        id="estate_property_type_menu"
-        name="Property Types"
-        parent="estate_menu_settings"
-        action="estate_property_type_action"
-    />
-
-    <!-- Level 3: Property Tags menu -->
-    <menuitem
-        id="estate_property_tag_menu"
-        name="Property Tags"
-        parent="estate_menu_settings"
-        action="estate_property_tag_action"
-    />
+            <menuitem id="estate_property_tag_menu" name="Property Tags" action="estate_property_tag_action"/>
+        </menuitem>
+    </menuitem>
 </odoo>
