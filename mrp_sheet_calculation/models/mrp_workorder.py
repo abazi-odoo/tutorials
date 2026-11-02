@@ -25,7 +25,4 @@ class MrpWorkorder(models.Model):
     @api.depends('qty_in', 'qty_waste')
     def _compute_waste_percentage(self):
         for record in self:
-            if record.qty_in:
-                record.waste_percentage = record.qty_waste / record.qty_in * 100
-            else:
-                record.waste_percentage = 0.0
+            record.waste_percentage = record.qty_waste / record.qty_in if record.qty_in  else 0

@@ -4,7 +4,7 @@
     <field name="model">mrp.workcenter</field>
     <field name="inherit_id" ref="mrp.mrp_workcenter_view" />
     <field name="arch" type="xml">
-      <xpath expr="//page[@name='general_info']//group[@name='capacity']" position="inside">
+      <xpath expr="//group[@name='capacity']" position="inside">
         <field name="qty_in_uom" />
         <field name="qty_out_uom" />
       </xpath>
