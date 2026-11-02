@@ -15,6 +15,8 @@ The calculations are performed using the dimensions and productivity configured 
 
     'depends': ["base", "mrp", "hr"],
     'data': [
+        'security/ir.access.csv',
+        
         'views/mrp_production_views.xml',
         'views/mrp_workcenter_views.xml',
         'views/mrp_workorder_daily_production_views.xml',

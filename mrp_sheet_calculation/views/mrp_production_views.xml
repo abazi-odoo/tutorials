@@ -4,7 +4,7 @@
     <field name="model">mrp.production</field>
     <field name="inherit_id" ref="mrp.mrp_production_form_view" />
     <field name="arch" type="xml">
-      <xpath expr="//sheet/notebook" position="before">
+      <xpath expr="//page[@name='miscellaneous']" position="inside">
         <group string="Sheet Requirements" name="sheet_requirements">
           <group>
             <field name="number_of_sheets" readonly="1" />

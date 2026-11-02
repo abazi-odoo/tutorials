@@ -17,10 +17,12 @@ class MrpProduction(models.Model):
                 record.number_of_sheets = 0
             # record.number_of_sheets = record.uom_id._compute_quantity(record.qty_produced, record.uom_id) / record.product_id.productivity
 
+    @api.depends('weight_per_sheet', 'number_of_sheets')
     def _compute_total_sheets_weight(self):
         for record in self:
             record.total_sheets_weight = record.weight_per_sheet * record.number_of_sheets
 
+    @api.depends('product_id.sheet_length', 'product_id.sheet_width', 'product_id.gsm')
     def _compute_weight_per_sheet(self):
         for record in self:
             if record.product_id.sheet_length and record.product_id.sheet_width and record.product_id.gsm:
