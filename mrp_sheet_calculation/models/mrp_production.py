@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class MrpProduction(models.Model):
@@ -12,10 +12,9 @@ class MrpProduction(models.Model):
     def _compute_number_of_sheets(self):
         for record in self:
             if record.product_id.productivity:
-                record.number_of_sheets = record.product_qty * record.uom_id.factor / record.product_id.productivity
+                record.number_of_sheets = record.uom_id._compute_quantity(record.qty_produced, record.uom_id) / record.product_id.productivity
             else:
                 record.number_of_sheets = 0
-            record.number_of_sheets = record.uom_id._compute_quantity(record.qty_produced, record.uom_id) / record.product_id.productivity
 
     @api.depends('weight_per_sheet', 'number_of_sheets')
     def _compute_total_sheets_weight(self):
