@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_field_playground_a,field.playground.a,model_field_playground_a,base.group_user,1,1,1,1
+access_field_playground_b,field.playground.b,model_field_playground_b,base.group_user,1,1,1,1
+access_field_playground_ab,field.playground.a_then_b,model_field_playground_a_then_b,base.group_user,1,1,1,1
+access_field_playground_ba,field.playground.b_then_a,model_field_playground_b_then_a,base.group_user,1,1,1,1
+access_field_playground_explicit,field.playground.explicit,model_field_playground_explicit,base.group_user,1,1,1,1
+access_field_playground_related,field.playground.related,model_field_playground_related,base.group_user,1,1,1,1
